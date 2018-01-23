@@ -11,6 +11,9 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import publicRoutes from './routes/public/index.js'
+import memberRoutes from './routes/member/index.js'
+import adminRoutes from './routes/admin/index.js'
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -25,6 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
+app.use(express.static('public')); // Folder for public files
+
 // required for passport
 app.use(session(config.get("session")))
 app.use(passport.initialize());
@@ -32,6 +37,11 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
+
+app.use(publicRoutes);
+app.use(memberRoutes);
+app.use(adminRoutes);
+
 //require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
