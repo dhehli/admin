@@ -1,12 +1,13 @@
 import express from 'express';
-import passport from 'passport'
+import passport from 'passport';
+import passportConf from '../../models/helpers/passport'
 const router = express.Router();
 
 const folder = './public/'
 
 router.get('/', (req, res) => {
   res.render(`${folder}/index`);
-})
+});
 
 router.get('/login', (req, res) => {
   // render the page and pass in any flash data if it exists

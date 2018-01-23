@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
 
 // define the schema for our user model
-const User = new Schema({
+const User = new mongoose.Schema({
   local: {
     email: String,
     password: String
