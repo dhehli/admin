@@ -24,7 +24,7 @@ mongoose.connect(config.get("database.url"));
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
@@ -36,13 +36,24 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+// middleware
+// route middleware to make sure a user is logged in
+function isMember(req, res, next) {
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+    return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect('/');
+}
+
 // routes ======================================================================
 
 app.use(publicRoutes);
-app.use('/member', memberRoutes);
+app.use('/member', isMember, memberRoutes);
 app.use('/admin', adminRoutes);
 
-//require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+//require('./app/routes.js')(app, passport);  load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);
