@@ -3,7 +3,7 @@ const router = express.Router();
 
 const folder = './admin/'
 
-router.get('/admin', function(req, res) {
+router.get('/', function(req, res) {
   res.render(`${folder}/index`);
 })
 
