@@ -12,6 +12,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import publicRoutes from './routes/public/index.js'
+import productRoutes from './routes/public/product.js'
 import memberRoutes from './routes/member/index.js'
 import adminRoutes from './routes/admin/index.js'
 
@@ -50,6 +51,7 @@ function isMember(req, res, next) {
 // routes ======================================================================
 
 app.use(publicRoutes);
+app.use('/products',productRoutes);
 app.use('/member', isMember, memberRoutes);
 app.use('/admin', adminRoutes);
 
