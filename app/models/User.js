@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+var mongoose = require('mongoose');
 import bcrypt from 'bcrypt-nodejs';
 
 // define the schema for our user model
@@ -39,4 +39,4 @@ User.methods.validPassword = password => {
 };
 
 // create the model for users and expose it to our app
-export default mongoose.model('User', User);
+module.exports = mongoose.model('User', User);
